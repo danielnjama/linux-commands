@@ -209,6 +209,22 @@ Change the owner and/or group of a file.
 chown new_owner:new_group filename
 ``````
 
+Examples:
+```bash
+# Grant read and write permissions to the user
+chmod u+rw filename
+
+# Remove execute permission from the group
+chmod g-x filename
+
+# Add execute permission for others
+chmod o+x filename
+
+# Set specific permissions using numeric representation (e.g., read and write for user, read-only for group and others)
+chmod 644 filename
+
+``````
+
 **Practice Exercise:**
 1. Display the current permissions and ownership of a file using ls -l.
 2. Use chmod to change permissions on a file.
