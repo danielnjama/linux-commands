@@ -164,7 +164,12 @@ command1 | command2
 
 # 5. Permissions and Ownership
 ## 5.1 Understanding Linux File Permissions:
-
+Permissions are represented using a three-character string for each category (user, group, others).
+To check on file permissions:
+```bash
+ls -l filename  #returns the permission of the named file
+ls -l    #returns a list of files in the current directory, alongside their permissions.
+``````
 **Three Permission Categories:**
 1. User (u): Owner of the file.
 2. Group (g): Users in the file's group.
@@ -175,7 +180,17 @@ command1 | command2
 - Execute (x): Permission to execute the file or access a directory.
 **Permission Representation:**
 
-Each category has a set of permissions, represented as a three-character string (e.g., rwx).
+Permissions can also be represented numerically using a three-digit octal number. Each digit corresponds to a permission category, and the value is calculated by summing the values assigned to the read, write, and execute permissions:
+
+4 for read (r)
+2 for write (w)
+1 for execute (x)
+
+For example:
+
+rwx is represented as 7 (4 + 2 + 1).
+rw- is represented as 6 (4 + 2).
+r-- is represented as 4 (4).
 
 ## 5.2 Changing File Permissions:
 
@@ -191,7 +206,6 @@ Changing File Ownership:
 ## 5.3 chown (Change Owner):
 Change the owner and/or group of a file.
 ```bash
-Copy code
 chown new_owner:new_group filename
 ``````
 
