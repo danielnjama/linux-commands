@@ -225,6 +225,32 @@ chmod 644 filename
 
 ``````
 
+## Explain what permission 644 mean
+
+File permission 644 is a numeric representation of the permissions assigned to a file in Linux. In the context of the three-digit octal number 644, each digit corresponds to a specific permission category: user (owner), group, and others.Here's a breakdown of what 644 means:
+**User (Owner):**
+
+- 6 corresponds to read (r) and write (w) permissions.
+- The owner of the file has read and write permissions but does not have execute permission.
+**Group:**
+
+- 4 corresponds to read (r) permission.
+- Members of the group associated with the file have only read permission.
+**Others:**
+
+- 4 corresponds to read (r) permission.
+- Other users (those not the owner and not in the group) also have only read permission.
+**Interpretation:**
+- The owner can read and modify the file (rw-).
+- Members of the group can read the file (r--).
+- Others (any user not the owner or in the group) can also read the file (r--).
+**Symbolic Representation:**
+The symbolic representation of 644 is rw-r--r--, where:
+
+- rw-: Read and write permissions for the owner.
+- r--: Read-only permissions for the group.
+- r--: Read-only permissions for others.
+
 **Practice Exercise:**
 1. Display the current permissions and ownership of a file using ls -l.
 2. Use chmod to change permissions on a file.
