@@ -163,9 +163,83 @@ command1 | command2
 4. Redirect and combine commands using >, >>, and |.
 
 # 5. Permissions and Ownership
+## 5.1 Understanding Linux File Permissions:
 
-# 6. System Information
+**Three Permission Categories:**
+1. User (u): Owner of the file.
+2. Group (g): Users in the file's group.
+3. Other (o): Everyone else.
+**Three Permission Types:**
+- Read (r): Permission to read the file.
+- Write (w): Permission to modify the file.
+- Execute (x): Permission to execute the file or access a directory.
+**Permission Representation:**
 
-# 7. Package Management
+Each category has a set of permissions, represented as a three-character string (e.g., rwx).
 
-# 8. Tips and Tricks
+## 5.2 Changing File Permissions:
+
+**chmod (Change Mode):**
+Modify file permissions.
+```bash
+chmod permissions filename
+``````
+**Numeric Representation:**
+Numeric values (e.g., 755) represent combinations of read, write, and execute permissions.
+Changing File Ownership:
+
+## 5.3 chown (Change Owner):
+Change the owner and/or group of a file.
+```bash
+Copy code
+chown new_owner:new_group filename
+``````
+
+**Practice Exercise:**
+1. Display the current permissions and ownership of a file using ls -l.
+2. Use chmod to change permissions on a file.
+3. Experiment with both symbolic and numeric representations.
+4. Use chown to change the owner and group of a file.
+
+# 6. Package Management
+## 6.1 Introduction to Package Managers:
+
+**Package Manager Definition:**
+A tool for installing, updating, and managing software packages on a Linux system.
+**Common Package Managers:**
+1. apt (Advanced Package Tool): Used by Debian and Ubuntu-based systems.
+2. yum (Yellowdog Updater Modified): Used by Red Hat-based systems.
+**Package Repository:**
+A centralized location where software packages are stored and can be downloaded and installed.
+
+## 6.2 Installing and Removing Software Packages:
+Installing with apt:
+```bash
+sudo apt install package_name
+``````
+Installing with yum:
+```bash
+sudo yum install package_name
+``````
+**Removing with apt and yum:**
+```bash
+sudo apt remove package_name
+sudo yum remove package_name
+``````
+
+## 6.3 Updating the System and Installed Packages:
+Updating with apt:
+```bash
+sudo apt update      # Fetches the latest package information
+sudo apt upgrade     # Upgrades installed packages
+``````
+Updating with yum:
+```bash
+sudo yum update      # Fetches and installs updates
+``````
+
+**Practice Exercise:**
+1. Install a package using apt or yum.
+2. Remove the installed package.
+3. Update the system and installed packages.
+
