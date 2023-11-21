@@ -13,7 +13,6 @@ Define: Linux is an open-source, Unix-like operating system kernel first created
   - Ubuntu
   - Red Hat
   - Debian
-  - Ubuntu
   - Parrot
   - Kali
   - CentOs
