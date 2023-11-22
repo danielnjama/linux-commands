@@ -1,5 +1,6 @@
 # Introduction to Linux Commands
 # 1. Introduction to Linux
+[![Watch the video](https://img.youtube.com/vi/mMz08R1Jq40/maxresdefault.jpg)](https://www.youtube.com/watch?v=mMz08R1Jq40)
 ## 1.1 Understanding the Linux Operating System
 Define: Linux is an open-source, Unix-like operating system kernel first created by Linus Torvalds in 1991. It is the foundation of various operating systems known as Linux distributions (distros).
 
