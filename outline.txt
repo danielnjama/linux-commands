@@ -1,0 +1,17 @@
+1. Getting Started
+- Explore the Linux desktop environment
+- Introduction to Linux shell and CLI
+2. Basic Commands
+- pwd - ls - cd - echo - clear - hostname
+3. File and Directory Management
+- touch - cp - mv - rm - mkdir - rmdir - cat - less - more
+- head - tail - chmod - chown
+4. Text Editing
+- nano - vim/vi
+5. Installing and Managing Software
+- Update - Upgrade - Install - remove
+6. Networking Basics
+- ssh - ping - wget - scp - rsync - Basic ports -DNS
+7. Shell scripting basics
+- shell scripts
+- cron jobs
