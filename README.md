@@ -174,6 +174,7 @@ ls -l    #returns a list of files in the current directory, alongside their perm
 1. User (u): Owner of the file.
 2. Group (g): Users in the file's group.
 3. Other (o): Everyone else.
+
 **Three Permission Types:**
 - Read (r): Permission to read the file.
 - Write (w): Permission to modify the file.
@@ -228,14 +229,17 @@ chmod 644 filename
 ## Explain what permission 644 mean
 
 File permission 644 is a numeric representation of the permissions assigned to a file in Linux. In the context of the three-digit octal number 644, each digit corresponds to a specific permission category: user (owner), group, and others.Here's a breakdown of what 644 means:
+
 **User (Owner):**
 
 - 6 corresponds to read (r) and write (w) permissions.
 - The owner of the file has read and write permissions but does not have execute permission.
+
 **Group:**
 
 - 4 corresponds to read (r) permission.
 - Members of the group associated with the file have only read permission.
+
 **Others:**
 
 - 4 corresponds to read (r) permission.
@@ -295,7 +299,8 @@ sudo yum update      # Fetches and installs updates
 ``````
 
 **Practice Exercise:**
-1. Install a package using apt or yum.
-2. Remove the installed package.
-3. Update the system and installed packages.
+1. Install nginx/httpd or any other package using apt or yum.
+2. Start, stop and check the status of the installed package.
+3. Remove the installed package.
+4. Update the system and installed packages.
 
