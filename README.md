@@ -1,4 +1,4 @@
-# Introduction to Linux Commands
+# Fundamentals of Linux Administration
 # 1. Introduction to Linux
 [![Watch the video](https://img.youtube.com/vi/mMz08R1Jq40/maxresdefault.jpg)](https://www.youtube.com/watch?v=mMz08R1Jq40)
 ## 1.1 Understanding the Linux Operating System
@@ -27,7 +27,26 @@ Define: Linux is an open-source, Unix-like operating system kernel first created
 
   
 # 2. Getting Started with Linux Commands
-## 2.1 Logging into a Linux System
+## 2.1 Overview of the Linux Terminal:
+## Components:
+1. Shell: Interpreter that processes commands.
+2. Prompt: Indicates readiness for user input.
+3. Command Line: Area for entering commands.
+4. Terminal Emulator: Software that emulates a physical terminal.
+
+Access to Linux terminal:
+To access a Linux Terminal, you need any of the following: 
+1. have access to a computer with Linux OS
+2. access to a Linux server
+3. access free Linux shell online:
+  - https://www.webminal.org/
+  - https://bellard.org/jslinux/
+
+4. On windows, install software that will simulate a Linux shell. Eg:  VirtualBox or VMware with a Linux OS, MobaXterm software.
+
+
+
+## 2.2 Logging into a Linux System
 1. **Local Login**: Physically at the machine, using a keyboard and monitor.
 2. **SSH (Secure Shell)**: Remotely access a machine over a network.
 
@@ -63,23 +82,18 @@ ssh username@server_ip -p port_number
 ```
 
 
-
-## 2.2 Overview of the Linux Terminal:
-## Components:
-1. Shell: Interpreter that processes commands. Common shells include , Zsh, and Fish.
-2. Prompt: Indicates readiness for user input.
-3. Command Line: Area for entering commands.
-4. Terminal Emulator: Software that emulates a physical terminal.
-
 ## 2.3 Basic Commands for Navigation
 **cd (Change Directory):**
 Change the current working directory.
 ```
 cd /path/to/directory
 ```
+Chage directory to the previous.
 ```
 cd ..
 ```
+
+Switch to Documents directory from any location
 ```
 cd ~/Documents/
 ```
@@ -184,6 +198,30 @@ Move files or directories (also used for renaming).
 ```
 mv source destination
 ``````
+
+**scp (Secure Copy)**
+The scp command is used to securely transfer files between a local system and a remote system, or between two remote systems, using SSH for encryption.
+
+Example:
+1. Copying a File from Local to Remote:
+```
+scp file.txt username@remote_host:/path/to/destination/
+```
+This copies file.txt from your local machine to the remote machine at /path/to/destination/.
+
+2. Copying a File from Remote to Local:
+```
+scp username@remote_host:/path/to/file.txt /local/path/
+```
+This copies file.txt from the remote server to your local machine
+
+3. Using a Different SSH Port:
+If the remote server uses a custom SSH port (other than the default port 22), use the -P option:
+
+```
+scp -P 2222 file.txt username@remote_host:/path/to/destination/
+
+```
 ## 3.3 Listing and Viewing File Content:
 
 **ls (List):**
@@ -210,6 +248,11 @@ less filename
 4. Navigate to your second name folder, and add more lines of "Hello world!!!". Upto 5 lines.
 5. Create a duplicate of the new-exercise.txt file and give it a name of your choice.
 6. List files and view their content using ls, cat, more, and less.: 1. To confirm 2 files under your second name folder and confirm the content. 
+
+**Explore Further**
+1. Explore how to sync or move files in a folder from one server to another:: (remote-remote or remote-local)
+2. How to scp a file from local server to EC2 instance using the key file (PEM)
+3. Explore other methods that can be used to get files to a remote server, including but not limited to Cloning a github repo, wget method etc.
 
 
 # 4. Text Manipulation
