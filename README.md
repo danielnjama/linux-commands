@@ -29,11 +29,44 @@ Define: Linux is an open-source, Unix-like operating system kernel first created
 # 2. Getting Started with Linux Commands
 ## 2.1 Logging into a Linux System
 1. **Local Login**: Physically at the machine, using a keyboard and monitor.
-2. **SSH (Secure Shell)***: Remotely access a machine over a network.
+2. **SSH (Secure Shell)**: Remotely access a machine over a network.
+
+***How to access a Linux server***
+
+***1. Local Login***
+
+This method involves accessing the Linux system directly, using a physical keyboard and monitor attached to the machine. After booting, the login prompt appears, where you can input the username and password to access the system.
+
+Steps for Local Login:
+- Power on the Linux machine.
+- At the login prompt, type in your username your password and press Enter.
+- Upon successful authentication, you will be logged into the system.
+
+***2. SSH (Secure Shell)***
+
+SSH allows you to securely access a Linux system remotely over a network. It’s commonly used to manage servers and remote systems. Here’s how to access a Linux server using SSH.
+
+***2.1: Default SSH Login***
+
+To log in to a server via SSH with the default settings, which usually uses port 22:
+```
+ssh username@server_ip
+```
+- username is your remote server’s user.
+- server_ip is the IP address/hostname of your Linux server.
+
+***2.2 SSH with a Different Port***
+
+If SSH is configured to run on a different port (other than the default port 22), you can specify the port using the -p flag:
+```
+ssh username@server_ip -p port_number
+```
+
+
 
 ## 2.2 Overview of the Linux Terminal:
 ## Components:
-1. Shell: Interpreter that processes commands. Common shells include Bash, Zsh, and Fish.
+1. Shell: Interpreter that processes commands. Common shells include , Zsh, and Fish.
 2. Prompt: Indicates readiness for user input.
 3. Command Line: Area for entering commands.
 4. Terminal Emulator: Software that emulates a physical terminal.
@@ -41,23 +74,75 @@ Define: Linux is an open-source, Unix-like operating system kernel first created
 ## 2.3 Basic Commands for Navigation
 **cd (Change Directory):**
 Change the current working directory.
-```bash
+```
 cd /path/to/directory
-``````
+```
+```
+cd ..
+```
+```
+cd ~/Documents/
+```
+
 **ls (List):**
 List files and directories in the current directory.
-```bash
+```
 ls
-`````
+```
+
+List Files in a Specific Directory:
+```
+ls /path/to/directory
+```
+Long Format with Hidden Files current folder:
+```
+ls -la
+```
+
+Long Format with Hidden Files on specific folder:
+```
+ls -la ls /path/to/directory
+```
+
+
 **pwd (Print Working Directory):**
 Display the current working directory's full path.
-```bash
+```
 pwd
-````
+```
+**df -h (Disk Free)**
 
+The df command is used to check the available disk space on the file system. The -h option stands for human-readable format, which displays the sizes in a more readable format (KB, MB, GB).
+
+```
+df -h
+```
+**echo**: 
+The echo command prints a line of text to the terminal or redirects it to a file.
+```
+echo "Hello, World!"
+```
+
+**man (Manual Pages)**
+
+The man command displays the manual (help) page for any other command.
+
+Example-: get more info on ls usage.
+```
+man ls
+````
 **Practice Exercise:**
-1. Have students practice logging in using SSH to a remote machine.
+1. Access a remote machine on SSH. Establish the home directory(default directory a user is placed in when they SSH)
 2. Navigate through directories using cd, list contents with ls, and print the working directory with pwd.
+3. Logout of the remote server. Mention the best practices 
+4. Check the disk size allocated to the root (/) mount.
+5. Identify the mount with the highest disk usage and mention the percentage. 
+
+**Explore Further**
+1. How to SSH Using a Key (Key-Based Authentication) - Upload ssh key and login in subsequently without entering password
+2. How to Access AWS EC2 Instance via SSH
+3. Explore other means on how to access EC2 instance.
+4. Explore other df -h options such as return output in ascending/descending order, return output for only the mounts that are a given percentage only. 
 
    
 
@@ -66,94 +151,104 @@ pwd
 
 **mkdir (Make Directory):**
 Create a new directory.
-```bash
+```
 mkdir directory_name
 ````
 **touch:**
 Create an empty file or update the access and modification time of a file.
-```bash
+```
 touch filename
-``````
+```
+**echo**
+Add content into the created file
+```
+echo "Hello, World!" > filename.txt
+```
+
 **rm (Remove):**
 Remove files or directories.
-```bash
+```
 rm filename
 rm -r directory_name  # Remove directory and its contents
+rmdir directory_name   #removes directory when empty
 ``````
 ## 3.2 Copying and Moving Files and Directories:
 
 **cp (Copy):**
 Copy files or directories.
-```bash
+```
 cp source destination
 ``````
 **mv (Move):**
 Move files or directories (also used for renaming).
-```bash
+```
 mv source destination
 ``````
 ## 3.3 Listing and Viewing File Content:
 
 **ls (List):**
 List files and directories in the current directory.
-```bash
+```
 ls
 ``````
 **cat (Concatenate):**
 Display the contents of a file.
-```bash
+```
 cat filename
 `````
 **more and less:**
 View the contents of a file one screen at a time.
-```bash
+```
 more filename
 less filename
 `````
 
 **Practice Exercise:**
-1. Create a directory, navigate into it, and create files using touch.
-2. Copy and move files between directories using cp and mv.
-3. List files and view their content using ls, cat, more, and less.
+1. Create 2 directories under /home, and name them your first and second names. create a file in your first name folder named exercise.txt. Add the text "Hello world!!!"
+2. Create a copy of the exercise.txt file and name the copy new-exercise.txt.
+3. Move the new-exercise.txt file to your second name folder.
+4. Navigate to your second name folder, and add more lines of "Hello world!!!". Upto 5 lines.
+5. Create a duplicate of the new-exercise.txt file and give it a name of your choice.
+6. List files and view their content using ls, cat, more, and less.: 1. To confirm 2 files under your second name folder and confirm the content. 
 
 
 # 4. Text Manipulation
 ## 4.1 Working with Text Files:
 
 **echo:**
-Display a line of text or enable/disable the echoing of commands.
-```bash
+Display a line of text
+```
 echo "Hello, Linux!"
 ``````
 **Text Editors:**
 nano: Simple text editor for beginners.
-```bash
+```
 nano filename
 ``````
 **vim: Powerful and efficient text editor.**
-```bash
+```
 vim filename
 ``````
 ## 4.2 Searching for Text in Files:
 **grep (Global Regular Expression Print):**
 Search for a specific pattern or text in files.
-```bash
+```
 grep pattern filename
 ``````
 ## 4.3 Redirecting and Combining Commands:
 **> (Output Redirection):**
 Redirects command output to a file, overwriting existing content.
-```bash
+```
 command > filename
 ``````
 **>> (Append):**
 Appends command output to a file.
-```bash
+```
 command >> filename
 ``````
 **| (Pipe):**
 Passes the output of one command as the input to another.
-```bash
+```
 command1 | command2
 ``````
 **Practice Exercise:**
@@ -166,7 +261,7 @@ command1 | command2
 ## 5.1 Understanding Linux File Permissions:
 Permissions are represented using a three-character string for each category (user, group, others).
 To check on file permissions:
-```bash
+```
 ls -l filename  #returns the permission of the named file
 ls -l    #returns a list of files in the current directory, alongside their permissions.
 ``````
@@ -197,7 +292,7 @@ r-- is represented as 4 (4).
 
 **chmod (Change Mode):**
 Modify file permissions.
-```bash
+```
 chmod permissions filename
 ``````
 **Numeric Representation:**
@@ -206,12 +301,12 @@ Changing File Ownership:
 
 ## 5.3 chown (Change Owner):
 Change the owner and/or group of a file.
-```bash
+```
 chown new_owner:new_group filename
 ``````
 
 Examples:
-```bash
+```
 # Grant read and write permissions to the user
 chmod u+rw filename
 
@@ -274,27 +369,27 @@ A centralized location where software packages are stored and can be downloaded 
 
 ## 6.2 Installing and Removing Software Packages:
 Installing with apt:
-```bash
+```
 sudo apt install package_name
 ``````
 Installing with yum:
-```bash
+```
 sudo yum install package_name
 ``````
 **Removing with apt and yum:**
-```bash
+```
 sudo apt remove package_name
 sudo yum remove package_name
 ``````
 
 ## 6.3 Updating the System and Installed Packages:
 Updating with apt:
-```bash
+```
 sudo apt update      # Fetches the latest package information
 sudo apt upgrade     # Upgrades installed packages
 ``````
 Updating with yum:
-```bash
+```
 sudo yum update      # Fetches and installs updates
 ``````
 
