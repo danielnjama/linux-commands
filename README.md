@@ -1,4 +1,13 @@
 # Fundamentals of Linux Administration
+
+## Table of Contents
+1. [Introduction to Linux](#1-introduction-to-linux)
+2. [Getting Started with Linux Commands](#2-getting-started-with-linux-commands)
+3. [File and Directory Management](#3-file-and-directory-management)
+4. [Text Manipulation](#4-text-manipulation)
+5. [Permissions and Ownership](#5-permissions-and-ownership)
+6. [Package Management](#6-package-management)
+7. [Networking Basics](#7-networking-basics)
 # 1. Introduction to Linux
 [![Watch the video](https://img.youtube.com/vi/mMz08R1Jq40/maxresdefault.jpg)](https://www.youtube.com/watch?v=mMz08R1Jq40)
 ## 1.1 Understanding the Linux Operating System
@@ -248,6 +257,7 @@ less filename
 4. Navigate to your second name folder, and add more lines of "Hello world!!!". Upto 5 lines.
 5. Create a duplicate of the new-exercise.txt file and give it a name of your choice.
 6. List files and view their content using ls, cat, more, and less.: 1. To confirm 2 files under your second name folder and confirm the content. 
+7. Repeat the above by first moving to the root folder; ie: cd / then execute the above tasks from here.
 
 **Explore Further**
 1. Explore how to sync or move files in a folder from one server to another:: (remote-remote or remote-local)
@@ -283,17 +293,29 @@ grep pattern filename
 Redirects command output to a file, overwriting existing content.
 ```
 command > filename
-``````
+```
+Example:
+```
+df -h > disk.txt
+```
 **>> (Append):**
 Appends command output to a file.
 ```
 command >> filename
-``````
+```
+Example:
+```
+df -h >> disk.txt
+```
 **| (Pipe):**
 Passes the output of one command as the input to another.
 ```
 command1 | command2
-``````
+```
+Example:
+```
+cat disk.txt | grep "home"
+```
 **Practice Exercise:**
 1. Use echo to create and display text.
 2. Create and edit text files with nano and vim.
@@ -343,12 +365,51 @@ Numeric values (e.g., 755) represent combinations of read, write, and execute pe
 Changing File Ownership:
 
 ## 5.3 chown (Change Owner):
-Change the owner and/or group of a file.
+The chown command in Linux is used to change the ownership of files and directories. This includes changing the owner, the group, or both.
+
+Usage:
 ```
-chown new_owner:new_group filename
-``````
+chown [options] new_owner:new_group filename
+```
+- new_owner: The new user who will own the file.
+- new_group: The new group that will be assigned ownership of the file.
+- filename: The name of the file or directory whose ownership is to be changed.
 
 Examples:
+
+1. To change the owner of a file to a new user:
+```
+sudo chown john file.txt
+```
+This command makes john the owner of file.txt. The group remains unchanged.
+
+2. Change the Owner and Group of a File::
+
+To change both the owner and group at the same time:
+```
+sudo chown john:developers file.txt
+```
+This sets john as the owner and assigns the file to the developers group.
+
+3. Change the Group Only
+
+If you want to change only the group of a file without modifying the owner:
+```
+sudo chown :developers file.txt
+```
+This changes the group to developers while keeping the current file owner unchanged.
+
+4. Change Ownership of a Directory and Its Contents Recursively
+
+To change the ownership of a directory and all its contents, use the -R (recursive) option:
+```
+sudo chown -R john:developers /path/to/directory
+```
+
+
+
+
+Other Examples:
 ```
 # Grant read and write permissions to the user
 chmod u+rw filename
@@ -382,10 +443,12 @@ File permission 644 is a numeric representation of the permissions assigned to a
 
 - 4 corresponds to read (r) permission.
 - Other users (those not the owner and not in the group) also have only read permission.
+
 **Interpretation:**
 - The owner can read and modify the file (rw-).
 - Members of the group can read the file (r--).
 - Others (any user not the owner or in the group) can also read the file (r--).
+
 **Symbolic Representation:**
 The symbolic representation of 644 is rw-r--r--, where:
 
@@ -423,9 +486,104 @@ sudo yum install package_name
 ```
 sudo apt remove package_name
 sudo yum remove package_name
-``````
+```
 
-## 6.3 Updating the System and Installed Packages:
+## 6.4 Installing Different Extensions of Files in Linux
+Some applications can be downloaded directly from the internet. The applications bear different extensions. See below how to install different extensions:
+
+1 .deb (Debian Package) : For systems like Ubuntu or Debian, you can use dpkg or apt to install .deb files.
+```
+sudo dpkg -i package_name.deb
+sudo apt-get install -f  # To fix any dependencies
+```
+2. .rpm (Red Hat Package Manager): On RHEL, CentOS, or Fedora systems, use rpm or dnf/yum to install .rpm files.
+```
+sudo rpm -i package_name.rpm
+
+OR
+sudo dnf install package_name.rpm
+```
+3. .tar.gz / .tar.bz2 (Compressed Archives): These are compressed archive files, often containing source code. You need to extract them first, then compile and install.
+```
+#Extract
+tar -xzf package_name.tar.gz  # For .tar.gz files
+tar -xjf package_name.tar.bz2  # For .tar.bz2 files
+
+#Go to extracted folder and::
+./configure
+make
+sudo make install
+```
+
+4. .AppImage (Portable Application): AppImages are self-contained executable applications.
+```
+chmod +x package_name.AppImage
+./package_name.AppImage
+```
+
+5. .sh (Shell Script): .sh files are executable shell scripts that often contain installation instructions.
+```
+chmod +x script_name.sh
+./script_name.sh
+```
+
+
+
+## 6.5 Checking Service Status
+In Linux, the systemctl command is commonly used to manage and check the status of services.
+- Check the status of a service:
+```
+sudo systemctl status <service_name>
+
+OR
+sudo service <service_name> status
+```
+This shows whether the apache2 service is running, stopped, or failed.
+- Start a service:
+```
+sudo systemctl start <service_name>
+
+OR
+
+sudo service <service_name> start
+
+```
+- Stop a service
+```
+sudo systemctl stop <service_name>
+
+OR
+
+sudo service <service_name> stop
+
+```
+- Enable a service to start on boot:
+```
+sudo systemctl enable <service_name>
+
+OR
+
+sudo service <service_name> enable
+```
+- Disable a service from starting on boot:
+```
+sudo systemctl disable <service_name>
+
+OR
+
+sudo service <service_name> disable
+```
+- Restart a service:
+```
+sudo systemctl restart <service_name>
+
+OR
+
+sudo service <service_name> restart
+```
+
+
+## 6.6 Updating the System and Installed Packages:
 Updating with apt:
 ```
 sudo apt update      # Fetches the latest package information
@@ -437,8 +595,46 @@ sudo yum update      # Fetches and installs updates
 ``````
 
 **Practice Exercise:**
-1. Install nginx/httpd or any other package using apt or yum.
+1. Update package repository and Install nginx/httpd or any other package using apt or yum.
 2. Start, stop and check the status of the installed package.
 3. Remove the installed package.
 4. Update the system and installed packages.
 
+
+# 7. Networking Basics
+1. **ssh (Secure Shell)**: Used to securely connect to a remote system over a network. See previous section on how to ssh into a Linux server.
+2. **ping**: Used to test network connectivity between two machines by sending ICMP echo requests.
+```
+ping google.com
+```
+3. **wget** : A utility to download files from the web via HTTP, HTTPS, or FTP protocols.
+```
+wget http://example.com/file.zip
+```
+4. **scp (Secure Copy)**: Used to securely transfer files between a local system and a remote system, or between two remote systems, using SSH.
+```
+scp file.txt username@remote_host:/path/to/destination/
+```
+5. **rsync**: A fast and versatile file copying tool, especially useful for synchronizing files between local and remote systems.
+```
+rsync -avz /local/dir/ username@remote_host:/remote/dir/
+```
+This synchronizes the content of /local/dir/ with /remote/dir/. The -a preserves permissions and timestamps, -v is for verbosity, and -z compresses the data during transfer.
+
+6. **Basic Ports**: Ports are logical channels through which network services communicate. Some common ports include:
+- Port 22: SSH (Secure Shell)
+- Port 80: HTTP (Web traffic)
+- Port 443: HTTPS (Secure web traffic)
+- Port 21: FTP (File Transfer Protocol)
+- Port 25: SMTP (Simple Mail Transfer Protocol for email)
+- Port 53: DNS (Domain Name System)
+
+7. **DNS (Domain Name System)** : DNS translates human-readable domain names (like example.com) into IP addresses that computers use to identify each other on the network.
+
+```
+nslookup example.com
+```
+This command queries DNS to find the IP address associated with example.com. Alternatively, you can use dig for more detailed DNS queries:
+```
+dig example.com
+```
