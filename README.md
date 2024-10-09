@@ -124,7 +124,7 @@ ls -la
 
 Long Format with Hidden Files on specific folder:
 ```
-ls -la ls /path/to/directory
+ls -la /path/to/directory
 ```
 
 
