@@ -423,6 +423,9 @@ chmod o+x filename
 # Set specific permissions using numeric representation (e.g., read and write for user, read-only for group and others)
 chmod 644 filename
 
+# change permissions for the various levels in one command
+chmod u+rwx,g+rx,o-rwx file.txt
+
 ``````
 
 ## Explain what permission 644 mean
@@ -638,3 +641,238 @@ This command queries DNS to find the IP address associated with example.com. Alt
 ```
 dig example.com
 ```
+
+# 7. User and Group Management
+## 1. User Accounts in Linux
+A user account in Linux represents an entity that can log into the system and access resources. The user account has:
+- A username (login name).
+- A UID (User ID) which uniquely identifies each user.
+- A home directory where user files and configurations are stored.
+- A shell that defines the command-line environment for the user.
+
+All user information is stored in the following files:
+- /etc/passwd: Contains user account details.
+- /etc/shadow: Stores user passwords in encrypted format.
+
+## Types of Users
+1. Root User:
+
+- The superuser with full control of the system.
+- Has UID 0.
+
+2. System Users:
+
+- Non-login accounts used by system services.
+- Typically have UID below 1000.
+
+3. Regular Users:
+
+- Normal users created by the system administrator.
+- They typically have UIDs starting from 1000.
+
+
+## 2. Managing Users
+Creating Users
+```
+useradd [options] username
+```
+This adds a new user.
+
+Common options:
+
+-m: Create a home directory.
+
+-d /home/directory: Specify a custom home directory.
+
+-s /bin/bash: Specify the shell for the user.
+
+Example:
+```
+useradd -m -s /bin/bash alice
+```
+
+## Setting a User Password
+Command Used: 
+```
+passwd username
+```
+Example:
+```
+passwd alice
+```
+## Modifying Users
+Used to modify existing user accounts. 
+
+Common options:
+
+-l new_username: Change the username.
+
+-d /new/home: Change the user's home directory.
+
+-s /bin/zsh: Change the user's default shell.
+
+```
+usermod -l alice_new alice
+```
+The above changes the username. 
+
+Other use cases:
+
+changes the home directory path of the user alice01 to /home/juja in the system configuration but does not create the directory or move any files.
+```
+usermod -d /home/juja alice01
+```
+
+This command changes the user's home directory to /home/juja and moves the existing home directory's contents to the new location.
+```
+usermod -d /home/juja -m alice01
+```
+
+### Deleting Users
+Command: 
+```
+userdel [options] username
+```
+This deletes a user from the system.
+- -r: Remove the user's home directory and mail spool.
+
+```
+userdel -r alice
+```
+This delete the user alice and remove their home directory and mail spool
+
+```
+sudo userdel alice
+```
+This command will delete the user but keep their home directory and files intact.
+
+
+## 3. Group Management
+A group is a collection of users, often created to simplify permissions management. Each user can belong to one primary group and multiple secondary groups.
+- Group details are stored in the /etc/group file.
+
+### Types of Groups
+1. Primary Group:
+- Every user has a primary group. Files created by the user belong to this group by default.
+2. Secondary Groups:
+- A user can belong to multiple secondary groups, giving them additional privileges..
+
+### Group Management Commands
+1. Creating a Group: groupadd groupname
+```
+groupadd developers
+```
+
+2. Adding a User to a Group: usermod -aG groupname username
+  - Adds a user to a secondary group.
+
+Below user added to sudo group.
+```
+usermod -aG sudo alice
+```
+
+3. Changing a User's Primary Group: usermod -g groupname username
+```
+usermod -g developers alice
+```
+4. Deleting a Group: groupdel groupname
+```
+groupdel developers
+```
+
+## 4. Viewing User and Group Information
+Viewing User Details:
+- Command: id username
+  - Shows the user's UID, GID (primary group), and secondary group memberships.
+```
+id alice
+```
+
+### Listing All Users
+- Command: cat /etc/passwd
+  - Displays all users on the system.
+
+### Listing All Groups
+- Command: cat /etc/group
+  - Displays all groups on the system.
+
+### Viewing a User’s Groups
+- Command: groups username
+  - Shows the groups a user belongs to.
+```
+groups alice
+```
+
+## 5. Switching Users
+- Command: su [username]
+```
+su alice
+```
+- sudo Command: Run Command as Another User
+  - Executes a command with root (or another user's) privileges.
+
+```
+sudo apt update
+```
+
+## 6. Important System Files for User and Group Management
+1. /etc/passwd:
+
+Contains a list of all users. Each line represents a user account, formatted as:
+```
+username:x:UID:GID:comment:home_directory:shell
+```
+2. /etc/shadow:
+
+Stores user passwords in encrypted form, along with password-related metadata.
+3. /etc/group:
+
+Stores group information. Each line represents a group, formatted as:
+```
+groupname:x:GID:user_list
+```
+4. /etc/sudoers:
+
+Specifies which users can run commands as root or other users via sudo. It is edited using the command visudo to prevent syntax errors.
+
+
+## 7. Use cases in User management
+### 1. Disabling Root Login and Using a Custom Admin User
+To improve security, it's recommended to disable direct root login and use a custom admin user with sudo privileges instead. Follow these steps:
+-  Create a Custom Admin User: in this case <adminuser> is the username
+```
+sudo adduser adminuser
+```
+- Add the user to the sudo group to grant administrative privileges:
+```
+sudo usermod -aG sudo adminuser
+```
+#### Disable Root Login via SSH
+- Open the SSH configuration file
+```
+sudo nano /etc/ssh/sshd_config
+```
+- Find the line
+```
+PermitRootLogin yes
+```
+- change it to:
+```
+PermitRootLogin no
+```
+- Save the file and restart the SSH service:
+```
+sudo systemctl restart sshd
+```
+#### Login with the Custom Admin User
+- Log in as the newly created adminuser
+```
+ssh adminuser@your_server_ip
+```
+- Once logged in, you can elevate privileges using sudo
+```
+sudo su
+```
+
+
+
